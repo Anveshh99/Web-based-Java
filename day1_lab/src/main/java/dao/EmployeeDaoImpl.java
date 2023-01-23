@@ -18,17 +18,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		
 		try {
 			//Session API: public serializable save(Object transientObjRef)
-			Long id=(Long)session.save(newEmp);
+			Integer id=(Integer)session.save(newEmp);
 			tx.commit();
 		
 			 mesg="Adding emp Details, Id="+id;
-		}catch (Exception e) {
+		}catch (RuntimeException e) {
 			// TODO: handle exception
 			if(tx!=null)
 			{
 				tx.rollback();
 			}
-		   
+		   throw e;
 		}	
 		return mesg;
 	}
